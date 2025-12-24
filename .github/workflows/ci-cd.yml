@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+
+cd /home/appuser/go-notes || exit
+
+echo "Atualizando código..."
+git pull origin main
+
+echo "Compilando aplicação..."
+go build -o app ./...
+
+echo "Reiniciando serviço systemd..."
+sudo systemctl restart go-notes.service
+
+echo "Deployment concluído!"
